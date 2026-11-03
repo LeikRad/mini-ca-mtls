@@ -14,6 +14,7 @@ server_ctx.verify_mode = ssl.CERT_REQUIRED
 HOST = "127.0.0.1"
 PORT = 8443
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((HOST, PORT))
     sock.listen()
     s = server_ctx.wrap_socket(sock, server_side=True)
@@ -30,5 +31,5 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 data = conn.recv(1024)
                 conn.sendall(f"hello {client_cn}\n".encode())
                 conn.unwrap()
-        except ssl.SSLError as e:
-            print(f"rejected: {e}")
+        except OSError as e:
+            print(f"rejected / abandoned: {e}")
