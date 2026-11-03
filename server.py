@@ -1,6 +1,5 @@
 import socket
 import ssl
-from pydoc import cli
 
 server_ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 
