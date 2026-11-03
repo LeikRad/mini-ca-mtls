@@ -1,0 +1,7 @@
+# Private keys never leave this machine
+*.key
+
+# Generated artifacts, rebuilt from ext/ by the scripts
+*.csr
+*.crt
+*.srl
